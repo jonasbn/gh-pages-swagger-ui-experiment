@@ -4,7 +4,7 @@ This is an experiment of hosting the Swagger-UI as GH pages, so it can be used t
 
 The repository is structured as follows:
 
-- `api-docs` - directory containing the Swagger-UI ([demo](https://jonasbn.github.io/gh-pages-swagger-ui-experiment/api-docs/))
+- `api-docs` - directory containing the Swagger-UI ([demo](api-docs/))
 - `swagger.json` - the OpenAPI/Swagger definition
 - `README.md` - this file (documentation describing the experiment)
 
@@ -83,6 +83,9 @@ Since we can [serve multiple API definitions][MULTIPLE], we can add multiple URL
       },
     ],
 ```
+
+REF:
+- https://github.com/jonasbn/gh-pages-swagger-ui-experiment/blob/main/api-docs/swagger-initializer.js
 
 The file is with the definition is also served from GitHub pages as: `https://jonasbn.github.io/gh-pages-swagger-ui-experiment/swagger.json`, so it is easy to consume for clients etc.
 
