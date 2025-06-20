@@ -85,6 +85,7 @@ Since we can [serve multiple API definitions][MULTIPLE], we can add multiple URL
 ```
 
 REF:
+
 - https://github.com/jonasbn/gh-pages-swagger-ui-experiment/blob/main/api-docs/swagger-initializer.js
 
 The file is with the definition is also served from GitHub pages as: `https://jonasbn.github.io/gh-pages-swagger-ui-experiment/swagger.json`, so it is easy to consume for clients etc.
