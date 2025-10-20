@@ -129,7 +129,7 @@ Do note that the action is based on [swagger-cli][SWAGGERCLI] which is deprecate
 
 Finally I need to work out the process of updating the contents of the `api-docs/` directory in the repository from the Swagger-UI `dist/` directory, so I can keep the Swagger-UI up-to-date.
 
-I have signed for notifications on releases and security announcements and I have created this little Perl script to compare:
+I have signed up for notifications on releases and security announcements and I have created this little Perl script to compare:
 
 - `api-docs/` directory
 - `dist/` directory
