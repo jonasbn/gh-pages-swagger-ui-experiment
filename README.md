@@ -65,7 +65,7 @@ We edit the `swagger-initializer.js` file and add the path to the `swagger.json`
 url: "../swagger.json",
 ```
 
-Since we can [serve multiple API definitions][MULTIPLE], we can add multiple URLs to the `urls` array in the `swagger-ui-bundle.js` file:
+Since we can [serve multiple API definitions][MULTIPLE], we can add multiple URLs to the `urls` array in the `swagger-initializer.js` file:
 
 ```javascript
     urls: [
