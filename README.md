@@ -41,7 +41,7 @@ cp -r . ../../api-docs # copy the files to the api-docs directory recursively
 cd ../../ # skip back to the root of the repository
 ```
 
-You can all the directory what you want. The name `api-docs` is just a suggestion.
+You can name the directory what you want. The name `api-docs` is just a suggestion.
 
 The `dist/` directory contains the Swagger-UI files, which can be used to serve the Swagger documentation as a static site.
 
