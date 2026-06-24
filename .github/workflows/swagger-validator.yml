@@ -1,15 +1,26 @@
-on: push
 name: Validate API swagger definition file
+on:
+  push
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
   validate:
-
+    name: Validate OpenAPI/Swagger definition file from repository
     runs-on: ubuntu-latest
 
     steps:
-    - name: Get OpenAPI/Swagger definition file
+    - name: Get OpenAPI/Swagger definition file from repository
       uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # 7.0.0
+      with:
+        persist-credentials: false
 
     - name: Validate OpenAPI/Swagger definition file
-      uses: mbowman100/swagger-validator-action@master
+      uses: mbowman100/swagger-validator-action@9da850f22c24a4a9f0120e0d38518262b5a3afc6 # 2.0
       with:
         files: swagger.json

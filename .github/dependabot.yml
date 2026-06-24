@@ -5,9 +5,37 @@ updates:
     directory: "/"
     # Check for updates once a week
     schedule:
-      interval: "weekly"
+      interval: "monthly"
+    groups:
+      major-updates:
+        patterns:
+          - "*"
+        update-types:
+          - "major"
+      minor-and-patch:
+        patterns:
+        - "*"
+        update-types:
+        - "patch"
+        - "minor"
+    cooldown:
+      default-days: 7
 
   - package-ecosystem: bundler
     directory: /
     schedule:
-      interval: "weekly"
+      interval: "monthly"
+    groups:
+      major-updates:
+        patterns:
+          - "*"
+        update-types:
+          - "major"
+      minor-and-patch:
+        patterns:
+        - "*"
+        update-types:
+        - "patch"
+        - "minor"
+    cooldown:
+      default-days: 7
