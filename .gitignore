@@ -1,2 +1,3 @@
 _site/
 .jekyll-metadata
+.claude/settings.local.json
