@@ -30,6 +30,12 @@ The Swagger-UI (`api-docs/`) is a verbatim copy of the official Swagger-UI `dist
 
 **When updating Swagger-UI**, copy the new `dist/` release over `api-docs/` and then reapply changes to `swagger-initializer.js` (it gets overwritten). A Perl comparison script is documented in README.md for identifying which files changed.
 
+**Swagger-UI update procedure:**
+1. Download: `curl -L "https://api.github.com/repos/swagger-api/swagger-ui/tarball/vX.Y.Z" -o swagger-ui-X.Y.Z.tar.gz`
+2. Extract and sync: `rsync -av swagger-api-swagger-ui-*/dist/ api-docs/` — use `rsync`, not `cp`, as `cp` is aliased with `-i` in this shell
+3. Restore `swagger-initializer.js` (rsync overwrites it with upstream default)
+4. Remove any files dropped by upstream with `git rm` — e.g., `.map` files were dropped in v5.32.8
+
 ## CI
 
 `.github/workflows/swagger-validator.yml` validates `swagger.json` on every push using the `mbowman100/swagger-validator-action`. GitHub Actions pins use commit SHAs per security best practice.
