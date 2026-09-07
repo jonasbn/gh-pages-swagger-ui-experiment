@@ -33,7 +33,7 @@ The Swagger-UI (`api-docs/`) is a verbatim copy of the official Swagger-UI `dist
 **Swagger-UI update procedure:**
 (Also encoded as the `update-swagger-ui` skill — invoke that instead of following these steps manually.)
 1. Download: `curl -L "https://api.github.com/repos/swagger-api/swagger-ui/tarball/vX.Y.Z" -o swagger-ui-X.Y.Z.tar.gz`
-2. Extract and sync: `rsync -av swagger-api-swagger-ui-*/dist/ api-docs/` — use `rsync`, not `cp`, as `cp` is aliased with `-i` in this shell
+2. Extract and sync: `rsync -rv --safe-links --no-perms --no-owner --no-group --chmod=D755,F644 swagger-api-swagger-ui-*/dist/ api-docs/` — use `rsync`, not `cp`, as `cp` is aliased with `-i` in this shell. The flags drop the third-party tarball's permissions/ownership and any symlink pointing outside the tree, normalizing to static-site perms (dirs 755, files 644)
 3. Restore `swagger-initializer.js` (rsync overwrites it with upstream default)
 4. Remove any files dropped by upstream with `git rm` — check `git status` after rsync to spot them (no need for the Perl `compare_directories.pl` script in README.md); e.g., `.map` files were dropped in v5.32.8
 5. No version file is tracked in the repo — find the currently-installed version via `git log --oneline --all | grep -i swagger-ui` (prior update commits are titled "Update Swagger-UI to vX.Y.Z")
