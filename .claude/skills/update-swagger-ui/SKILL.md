@@ -30,6 +30,13 @@ A reference/technique skill for syncing a new Swagger-UI `dist/` release into `a
 
    Why not `-av`: `-a` would copy the third-party tarball's permissions, ownership, and symlinks verbatim. The flags above instead normalize to static-site perms (dirs 755, files 644) and `--safe-links` discards any symlink that points outside `api-docs/`, so a tampered tarball can't smuggle one into the repo.
 
+   macOS ships `openrsync` (BSD), not GNU rsync — check with `rsync --version`. `openrsync` rejects the GNU octal-list syntax `--chmod=D755,F644` with `invalid argument`. On `openrsync`, use the symbolic equivalent instead:
+   ```bash
+   rsync -rv --safe-links --no-perms --no-owner --no-group --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r \
+     swagger-api-swagger-ui-*/dist/ api-docs/
+   ```
+   This produces identical 755/644 permissions.
+
 4. **Restore swagger-initializer.js**
    rsync overwrites it with the upstream default (single `url:`). Restore the custom multi-URL version from git or from memory — it must contain the `urls: [...]` array with three entries:
    - `../swagger.json` — local file from the repo
@@ -59,6 +66,7 @@ A reference/technique skill for syncing a new Swagger-UI `dist/` release into `a
 |---|---|
 | Using `cp -r dist/ api-docs/` | Use the hardened `rsync` from step 3 instead |
 | Using `rsync -av` | `-a` inherits the tarball's perms/owner/symlinks — use the flag set in step 3 |
+| `--chmod=D755,F644: invalid argument` | You're on `openrsync` (macOS default) — use the symbolic form `--chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r` |
 | Forgetting to restore `swagger-initializer.js` | Always check it after rsync; upstream uses a single `url:` key |
 | Missing dropped upstream files | Run `git status` — missing tracked files show as deleted but unstaged |
 | Using `rm` to delete tracked files | Use `git rm` so git stages the deletion |
