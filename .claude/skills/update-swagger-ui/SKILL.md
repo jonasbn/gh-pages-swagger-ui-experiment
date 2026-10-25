@@ -17,14 +17,15 @@ A reference/technique skill for syncing a new Swagger-UI `dist/` release into `a
 2. **Download the release tarball**
    ```bash
    curl -L "https://api.github.com/repos/swagger-api/swagger-ui/tarball/vX.Y.Z" -o swagger-ui-X.Y.Z.tar.gz
-   tar xzf swagger-ui-X.Y.Z.tar.gz
+   mkdir swagger-ui-src
+   tar xzf swagger-ui-X.Y.Z.tar.gz -C swagger-ui-src --strip-components=1
    ```
-   The extracted directory is named `swagger-api-swagger-ui-<sha>/`.
+   The tarball's top-level directory is `swagger-api-swagger-ui-<sha>/`; `--strip-components=1` extracts into a fixed `swagger-ui-src/` so the rsync command below is identical every release (and can be allowlisted as an exact Claude Code permission rule).
 
 3. **Sync dist/ into api-docs/**
    ```bash
    rsync -rv --safe-links --no-perms --no-owner --no-group --chmod=D755,F644 \
-     swagger-api-swagger-ui-*/dist/ api-docs/
+     swagger-ui-src/dist/ api-docs/
    ```
    Use `rsync`, not `cp` — `cp` is aliased with `-i` in this shell and will prompt interactively for every file.
 
@@ -33,7 +34,7 @@ A reference/technique skill for syncing a new Swagger-UI `dist/` release into `a
    macOS ships `openrsync` (BSD), not GNU rsync — check with `rsync --version`. `openrsync` rejects the GNU octal-list syntax `--chmod=D755,F644` with `invalid argument`. On `openrsync`, use the symbolic equivalent instead:
    ```bash
    rsync -rv --safe-links --no-perms --no-owner --no-group --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r \
-     swagger-api-swagger-ui-*/dist/ api-docs/
+     swagger-ui-src/dist/ api-docs/
    ```
    This produces identical 755/644 permissions.
 
